@@ -18,7 +18,7 @@ require("classInt")#pour faire des classifications univariée
 
 rm(list=ls())
 
-setwd("~/git/datablogvinometro/adelaide_wine/")
+setwd("~/github/adelaide_vine_maps/")
 data2000<-read.csv("data/csv/national_2010.csv",head=TRUE,sep=",",skip=1)
 
 data2000<-t(data2000)
@@ -165,13 +165,13 @@ dev.off()
 
 ##Tenttative de generaliser la creation de carte pour chaque cépage
 nameIndex<-names(word.df)
-for (i in 19:length(data2000[1,])){
+for (i in 1:length(data2000[1,])){
   print(i)
   space<-word.df[,1:18]
-  variety<-word.df[,i]
+  variety<-as.numeric(as.character(word.df[,i]))
   variety[is.na(variety)]<-0
   nb_viti_country <- sum(variety > 0)
-  if(nb_viti_country > 10){
+  if(nb_viti_country > 10 & !is.na(nb_viti_country)){
     ##classification de jenks sur variety
     classif<-classIntervals(variety,n=4,style="kmeans")
     #pal1 <- c("wheat1", "red3") #definition des extrémités de la palette de couleurs
